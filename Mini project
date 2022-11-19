@@ -41,14 +41,13 @@ class Application(tk.Frame):
         self.time_entry.bind("<Key>", lambda v: self.update())
 
     def calculate(self):
-        """time calculation"""
         self.hours = self.time // 3600
         self.mins = (self.time // 60) % 60
         self.secs = self.time % 60
         return "{:02d}:{:02d}:{:02d}".format(self.hours, self.mins, self.secs)
 
     def update(self):
-        """validation"""
+        
         self.time = int(self.time_entry.get())
         try:
             self.clock.configure(text=self.calculate())
@@ -56,7 +55,7 @@ class Application(tk.Frame):
             self.clock.configure(text="00:00:00")
 
     def timer(self):
-        """display time"""
+       
         if self.running:
             if self.time <= 0:
                 self.clock.configure(text="Time's up!")
@@ -66,7 +65,7 @@ class Application(tk.Frame):
                 self.after(1000, self.timer)
 
     def start(self):
-        """start timer"""
+       
         try:
             self.time = int(self.time_entry.get())
             self.time_entry.delete(0, 'end')
@@ -83,7 +82,7 @@ class Application(tk.Frame):
             self.running=False
 
     def reset(self):
-        """Resets the timer to 0."""
+       
         self.power_button.configure(text="Start", command=lambda: self.start())
         self.master.bind("<Return>", lambda x: self.start())
         self.running = False
@@ -91,7 +90,7 @@ class Application(tk.Frame):
         self.clock["text"] = "00:00:00"
 
     def pause(self):
-        """Pause timer"""
+       
         self.pause_button.configure(text="Resume", command=lambda: self.resume())
         self.master.bind("<Return>", lambda x: self.resume())
         if self.running == True:
@@ -100,7 +99,7 @@ class Application(tk.Frame):
       
 
     def resume(self):
-        """Resume timer"""
+      
         self.pause_button.configure(text="Pause", command=lambda: self.pause())
         self.master.bind("<Return>", lambda x: self.pause())
         if self.running == False:
@@ -108,7 +107,7 @@ class Application(tk.Frame):
         self.timer()
         
 if __name__ == "__main__":
-    """Main loop of timer"""
+    
     root = tk.Tk()
     root.title("TIMER")
     Application(root).pack(side="top", fill="both", expand=True)
